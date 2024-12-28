@@ -1,7 +1,5 @@
 # Este script monitorea el precio de cursos online en Udemy.
-# Si el precio del curso es igual o menor a un monto definido por el usuario,
-# dispara una notificación del sistema operativo
-# Developed by tobiasrimoli@duck.com
+# Si el precio del curso es igual o menor a un monto definido por el usuario, dispara una notificación del sistema operativo
 
 import time, requests, pytz
 from bs4 import BeautifulSoup
@@ -26,12 +24,14 @@ while True:
             price = float(price_meta['content'][:5].replace(",","."))
             # print("Precio extraído:", price)
         else:
-            print("ERROR: No se encontró el precio.")
+            print("ERROR: Can't find the price.")
             price = None
+            break
 
     except Exception as e:
-        print("ERROR: No se logró extraer el precio:", str(e))
+        print("ERROR: Can't extract the price: ", str(e))
         price = None
+        break
 
     try:
         if price <= price_target:
@@ -44,7 +44,13 @@ while True:
             )
             print(message) # Por las dudas también lo imprime por consola
             break
+        else:
+            time.sleep(60 * 60 * 1)  # Esperar 1 hora antes de volver a verificar cambios en el precio
     except:
-        pass
-    if price > price_target:
-        time.sleep(60 * 60 * 1)  # Esperar 1 hora antes de volver a verificar cambios en el precio
+        try:
+            test = (price <= price_target)
+            print(f"Bye bye! The last price was USD {price}")
+            break
+        except:
+            print("ERROR: price format cause script crash")
+            break
