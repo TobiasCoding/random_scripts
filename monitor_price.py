@@ -1,7 +1,9 @@
 # Este script monitorea el precio de cursos online en Udemy.
-# Si el precio del curso es igual o menor a un monto definido por el usuario, dispara una notificación del sistema operativo
+# Si el precio del curso es igual o menor a un monto definido por el usuario,
+# dispara una notificación del sistema operativo
+# Developed by tobiasrimoli@duck.com
 
-import time, requests
+import time, requests, pytz
 from bs4 import BeautifulSoup
 from plyer import notification
 from datetime import datetime
@@ -9,9 +11,8 @@ from datetime import datetime
 course_url = "https://www.udemy.com/course/ingenieria-inversa-y-cracking-de-software-preventivo/"
 price_target = 20
 
-from datetime import datetime
-import pytz
 buenos_aires_tz = pytz.timezone('America/Argentina/Buenos_Aires')
+print("Monitoring... Use `Ctrl+C` to close the script")
 
 while True:
     try:
