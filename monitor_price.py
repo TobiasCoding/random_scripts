@@ -45,4 +45,5 @@ while True:
             break
     except:
         pass
-    time.sleep(60 * 60 * 1)  # Esperar 1 hora antes de volver a verificar cambios en el precio
+    if price > price_target:
+        time.sleep(60 * 60 * 1)  # Esperar 1 hora antes de volver a verificar cambios en el precio
