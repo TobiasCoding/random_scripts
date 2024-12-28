@@ -1,9 +1,13 @@
+# Este script monitorea el precio de cursos online en Udemy.
+# Si el precio del curso es igual o menor a un monto definido por el usuario, dispara una notificación de Windows
+
 import time, requests
 from bs4 import BeautifulSoup
 from plyer import notification
 from datetime import datetime
 
 course_url = "https://www.udemy.com/course/ingenieria-inversa-y-cracking-de-software-preventivo/"
+price_target = 20
 
 from datetime import datetime
 import pytz
@@ -29,16 +33,16 @@ while True:
         price = None
 
     try:
-        if price > 10:
+        if price <= price_target:
             buenos_aires_time = datetime.now(buenos_aires_tz)
             message=f"The price of the course is on offer: {price}! {buenos_aires_time}"
             notification.notify(
                 title="ALERT PRICE!",
                 message=message,
-                timeout=60*10  # Duración en segundos. Mantiene el cartel 10 minutos
+                timeout=60*10  # Duración en segundos. Mantiene el cartel 10 minutos salvo que el usuario lo cierre manualmente
             )
-            print(message)
+            print(message) # Por las dudas también lo imprime por consola
             break
     except:
         pass
-    time.sleep(60 * 60 * 1)  # Esperar 1 hora antes de volver a verificar
+    time.sleep(60 * 60 * 1)  # Esperar 1 hora antes de volver a verificar cambios en el precio
