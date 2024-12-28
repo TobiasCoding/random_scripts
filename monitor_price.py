@@ -1,5 +1,5 @@
 # Este script monitorea el precio de cursos online en Udemy.
-# Si el precio del curso es igual o menor a un monto definido por el usuario, dispara una notificación de Windows
+# Si el precio del curso es igual o menor a un monto definido por el usuario, dispara una notificación del sistema operativo
 
 import time, requests
 from bs4 import BeautifulSoup
